@@ -388,9 +388,7 @@
 				width: 100%;
 				height: 100%;
 				background-color: rgba(0, 0, 0, 0.3);
-				 /* 半透明背景色 */
 				 backdrop-filter: blur(20px);
-				 /* 背景模糊效果 */
 				 -webkit-backdrop-filter: blur(10px);
 				
 				&-x{
@@ -433,7 +431,7 @@
 								height: 0;
 								border-left: 6rpx solid transparent;
 								border-right: 6rpx solid transparent;
-								border-top: 12rpx solid white; /* 调整颜色和高度 */
+								border-top: 12rpx solid white;
 							 }
 						 }
 					 }
