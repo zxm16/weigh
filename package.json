@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "axios": "^0.27.2",
+    "axios-adapter-uniapp": "^0.1.4",
+    "pinia": "^2.2.6",
+    "uniapp-axios-adapter": "^0.3.2"
+  },
+  "devDependencies": {
+    "sass": "^1.80.4",
+    "sass-loader": "^16.0.2"
+  }
+}

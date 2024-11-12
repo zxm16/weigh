@@ -1,0 +1,33 @@
+
+.content {
+		height: 100vh;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		background-color:rgba(229, 229, 229);
+}
+.innerBox{
+		height: 20vh;
+		display: flex;
+		flex-direction: column;
+}
+.logo {
+		height: 200rpx;
+		width: 200rpx;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 30rpx;
+		border-radius: 30%;
+}
+.text-area {
+		display: flex;
+		justify-content: center;
+}
+.title {
+		font-size: 42rpx;
+		color: black;
+		text-align: center;
+		letter-spacing: 2px;
+		font-family: 'Courier New', Courier, monospace;
+}
