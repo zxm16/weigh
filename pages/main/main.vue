@@ -66,10 +66,11 @@
 		</view>
 		
 		<!-- 顶部导航栏联动卡片 -->
-		<view class="main-middleCard" :style="{'top': height.cardHeight + 'rpx'}">
+		<view class="main-middleCard" :style="{'top': height.cardHeight + 'rpx'}" >
 			<view class="main-middleCard-innerBox">
 				<swiper class="main-middleCard-innerBox-swiper" @change='changeSwiper' :current ='control.swiperControl'>
-						<!-- 第一张图用swiper-item包裹 -->
+						
+						<!-- 饮食栏 -->
 						<swiper-item class="main-middleCard-innerBox-swiper-x">
 							<view class="main-middleCard-innerBox-swiper-x-top">
 								<view class="main-middleCard-innerBox-swiper-x-top-left">
@@ -93,16 +94,32 @@
 								<smallCircleBar  mealsTime="加餐" color='#fab6b6' progress='100'/>
 							</view>
 						</swiper-item>
-						<!-- 第二张图 -->
+						
+						<!-- 体重栏 -->
 						<swiper-item class="main-middleCard-innerBox-swiper-y">
 							<view class="main-middleCard-innerBox-swiper-y-cover">
-								体重
+								<view class="main-middleCard-innerBox-swiper-y-cover-top">
+									
+								</view>
+								<view 
+								@click="OpenCard(control.openOverCardStyle)"
+								class="main-middleCard-innerBox-swiper-y-cover-bottom">
+									
+								</view>
+								
 							</view>
 						</swiper-item>
 						
 					</swiper>
 			</view>
 		</view>
+	
+		<view :class="control.openOverCardStyle" >
+			<view class="main-overCard-innerBox">
+				
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -130,9 +147,12 @@
 	 */
 	let height = reactive({
 		navHeight: 0,
-		cardHeight: 0
+		cardHeight: 0,
+		overCardHeigh: 0,
 	})
 	
+	// 设置目标高度
+	let heigh = ref(0)
 	
 	/**
 	 * 这是一个示例函数，用于加法运算。
@@ -141,14 +161,19 @@
 	 * @param {string} navLocation - 显示nav当前位置
 	 * @param {string} navStyle - 动态添加class属性
 	 * param {Blooen} navIcon - 控制在h5或微信小程序展示右上角图标
+	 * param {Blooen} openOverCard - 控制设置目标卡片开关
 	 */
 	let control = reactive({
 		controlValue: 0,
 		swiperControl:1,
 		navLocation: "right",
 		navStyle:'main-topBox-innerBox-nav-middle',
-		navIcon: true
+		navIcon: true,
+		openOverCard: false,
+		openOverCardStyle: 'main-overCardFrist'
 	})
+	
+	
 	
 	
 	//方法
@@ -175,6 +200,9 @@
 		if(e.detail.current === 0){
 			control.navLocation = 'left'
 			control.navStyle = 'main-topBox-innerBox-nav-middley'
+			if(control.openOverCardStyle !== 'main-overCardFrist'){
+				control.openOverCardStyle = 'main-overCardClose'
+			}
 			changeNavStyle('left')
 		}else{
 			control.navLocation = 'right'
@@ -183,6 +211,17 @@
 		}
 	}
 	
+	//开关设置目标卡片
+	let OpenCard = (e) => {
+		
+		if(e === 'main-overCardFrist'){
+			control.openOverCardStyle =  'main-overCard'
+		}else if(e === 'main-overCard'){
+			control.openOverCardStyle = 'main-overCardClose'
+		}else{
+			control.openOverCardStyle =  'main-overCard'
+		}
+	}
 	
 	//生命周期
 	onLoad(() => {
@@ -193,7 +232,8 @@
 			height.navHeight = screenTopNavHeight.value
 		}
 		height.cardHeight = Number(height.navHeight) + 200
-		
+		height.overCardHeigh = Number(height.navHeight) + 750
+		heigh.value= height.overCardHeigh + 'rpx'
 		/*#ifdef MP-WEIXIN*/
 		  // 微信小程序端执行的逻辑
 			 control.navIcon = false
@@ -374,6 +414,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		z-index: 2;
 		
 		&-innerBox{
 			width: 90%;
@@ -387,7 +428,7 @@
 			&-swiper{
 				width: 100%;
 				height: 100%;
-				background-color: rgba(0, 0, 0, 0.3);
+				// background-color: rgba(0, 0, 0, 0.3);
 				 backdrop-filter: blur(20px);
 				 -webkit-backdrop-filter: blur(10px);
 				
@@ -453,13 +494,77 @@
 					 }
 					
 				}
+				
 				&-y{
 					width: 100%;
 					height: 100%;
+					
+					&-cover{
+						width: 100%;
+						height: 100%;
+						position: relative;
+						
+						&-top{
+							width: 100%;
+							height: 70%;
+						}
+						
+						&-bottom{
+							width: 100%;
+							height: 30%;
+							background-color: blue;
+						}
+					}
+					
 				}
 			}
 		}
 	}
+	
+	&-overCard{
+		z-index: 1;
+		position: absolute;
+		top: v-bind(heigh);
+		width: 100%;
+		height: 180rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		animation-name: example3;
+		animation-duration: 2s;	
+		
+		&-innerBox{
+			width: 90%;
+			height: 100%;
+			background-color: #c0c4cc;
+			border-radius:0px 0 20px 20px;
+			overflow: hidden;
+			
+		}
+	}
+
+	&-overCardClose{
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		height: 180rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		animation-name: example4;
+		animation-duration: 2s;
+	}
+	
+	&-overCardFrist{
+		z-index: 1;
+		position: absolute;
+		width: 100%;
+		height: 180rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
 }
 
 /* 动画代码 */
@@ -471,5 +576,15 @@
 @keyframes example2 {
   from {right: 50%;}
     to {right: 0%;}
+}
+
+@keyframes example3 {
+  from {top: 674rpx;}
+    to {top: v-bind(heigh);}
+}
+
+@keyframes example4 {
+  from {top: v-bind(heigh);}
+    to {top: 674rpx;}
 }
 </style>
