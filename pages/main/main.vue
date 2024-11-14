@@ -103,9 +103,39 @@
 									
 								</view>
 								<view 
-								@click="OpenCard(control.openOverCardStyle)"
+								
 								class="main-middleCard-innerBox-swiper-y-cover-bottom">
+									<!-- 初始体重 -->
+									<view class="main-middleCard-innerBox-swiper-y-cover-bottom-itemleft ab">
+										<view >
+											--
+										</view>
+										<view style="margin-top: 15rpx;" @click="OpenCard(control.openOverCardStyle)">
+											初始体重
+										</view>
+									</view>
 									
+									<!-- 距离目标 -->
+									<view class="main-middleCard-innerBox-swiper-y-cover-bottom-itemCenter ab">
+											<view>
+												--
+											</view>
+											<view style="margin-top: 15rpx;" @click="OpenCard(control.openOverCardStyle)">
+												距离目标
+											</view>
+									</view>
+									
+									<!-- 设置目标 -->
+									<view class="main-middleCard-innerBox-swiper-y-cover-bottom-itemRight ab">
+										<view class="">
+											<u-icon size="45"
+											name="edit-pen-fill"></u-icon>
+										</view>
+										<view style="margin-top: 10rpx;" >
+											设置目标
+										</view>
+									</view>
+								
 								</view>
 								
 							</view>
@@ -546,7 +576,30 @@
 						&-bottom{
 							width: 100%;
 							height: 30%;
-							background-color: blue;
+							display: flex;
+							justify-content: center;
+							
+							.ab{
+								width: 33.3%;
+								height: 80%;
+								display: flex;
+								flex-direction: column;
+								align-items: center;
+								justify-content: center;
+								color: white;
+								font-size: 30rpx;
+								font-weight: bold;
+								letter-spacing: 1px;
+							}
+							&-itemRight{
+								
+							}
+							&-itemCenter{
+								
+							}
+							&-itemLeft{
+								
+							}
 						}
 					}
 					
