@@ -67,6 +67,7 @@
 		
 		<!-- 顶部导航栏联动卡片 -->
 		<view class="main-middleCard" :style="{'top': height.cardHeight + 'rpx'}" >
+			
 			<view class="main-middleCard-innerBox">
 				<swiper class="main-middleCard-innerBox-swiper" @change='changeSwiper' :current ='control.swiperControl'>
 						
@@ -112,6 +113,7 @@
 						
 					</swiper>
 			</view>
+			
 		</view>
 	
 		<view :class="control.openOverCardStyle" >
@@ -120,12 +122,15 @@
 			</view>
 		</view>
 		
+		<view class="main-chart" :class="control.chartStyle">
+			
+		</view>
 	</view>
 </template>
 
 <script setup>
 	//属性
-	import{reactive, ref} from "vue"
+	import{reactive, ref, watch} from "vue"
 	import {onLoad} from '@dcloudio/uni-app'
 	import {Login} from '@/api/login.js'
 	import{useStore} from "@/store/index.js"
@@ -149,10 +154,16 @@
 		navHeight: 0,
 		cardHeight: 0,
 		overCardHeigh: 0,
+		
 	})
 	
 	// 设置目标高度
-	let heigh = ref(0)
+	let overCardHeigh = ref(0)
+	let overCardMoveHeigh = ref(0)
+	
+	let chartHeigh = ref(0)
+	let chartMoveHeigh = ref(0)
+	
 	
 	/**
 	 * 这是一个示例函数，用于加法运算。
@@ -169,11 +180,9 @@
 		navLocation: "right",
 		navStyle:'main-topBox-innerBox-nav-middle',
 		navIcon: true,
-		openOverCard: false,
-		openOverCardStyle: 'main-overCardFrist'
+		openOverCardStyle: 'main-overCard',
+		chartStyle: 'main-chart'
 	})
-	
-	
 	
 	
 	//方法
@@ -197,10 +206,12 @@
 	
 	//切换swiper卡片
 	let changeSwiper = (e) =>{
+		
 		if(e.detail.current === 0){
 			control.navLocation = 'left'
 			control.navStyle = 'main-topBox-innerBox-nav-middley'
-			if(control.openOverCardStyle !== 'main-overCardFrist'){
+			// 需要优化
+			if(control.openOverCardStyle !== 'main-overCard'){
 				control.openOverCardStyle = 'main-overCardClose'
 			}
 			changeNavStyle('left')
@@ -213,15 +224,27 @@
 	
 	//开关设置目标卡片
 	let OpenCard = (e) => {
-		
-		if(e === 'main-overCardFrist'){
-			control.openOverCardStyle =  'main-overCard'
-		}else if(e === 'main-overCard'){
+		if(e === 'main-overCard'){
+			control.openOverCardStyle =  'main-overCardOpen'
+		}else if(e === 'main-overCardOpen'){
 			control.openOverCardStyle = 'main-overCardClose'
 		}else{
-			control.openOverCardStyle =  'main-overCard'
+			control.openOverCardStyle =  'main-overCardOpen'
 		}
 	}
+	
+	
+	//监听超出card变化对下面的卡片进行移动
+	watch(() => control.openOverCardStyle, (newVal) => {
+		console.log(newVal)
+		if(newVal === 'main-overCardOpen'){
+			control.chartStyle = 'main-chartOpen'
+		}else{
+			control.chartStyle = 'main-chartClose'
+		}
+		console.log(chartHeigh.value)
+		console.log(chartMoveHeigh.value)
+	})
 	
 	//生命周期
 	onLoad(() => {
@@ -231,9 +254,17 @@
 		}else{
 			height.navHeight = screenTopNavHeight.value
 		}
+		
 		height.cardHeight = Number(height.navHeight) + 200
-		height.overCardHeigh = Number(height.navHeight) + 750
-		heigh.value= height.overCardHeigh + 'rpx'
+		height.overCardHeigh = Number(height.navHeight) + 800
+		
+		overCardHeigh.value = height.overCardHeigh - 200 + 'rpx'
+		overCardMoveHeigh.value = height.overCardHeigh - 100 + 'rpx'
+		
+		chartHeigh.value = height.overCardHeigh + 50 + 'rpx'
+		chartMoveHeigh.value = height.overCardHeigh + 150 + 'rpx'
+	
+	
 		/*#ifdef MP-WEIXIN*/
 		  // 微信小程序端执行的逻辑
 			 control.navIcon = false
@@ -406,6 +437,7 @@
 		
 	}
 	
+	//卡片
 	&-middleCard{
 		width: 100%;
 		height: 600rpx;
@@ -431,6 +463,8 @@
 				// background-color: rgba(0, 0, 0, 0.3);
 				 backdrop-filter: blur(20px);
 				 -webkit-backdrop-filter: blur(10px);
+				 border-radius: 20px;
+				 overflow: hidden;
 				
 				&-x{
 					width: 100%;
@@ -521,18 +555,16 @@
 		}
 	}
 	
+	//超出卡片
 	&-overCard{
 		z-index: 1;
 		position: absolute;
-		top: v-bind(heigh);
+		top: v-bind(overCardHeigh);
 		width: 100%;
-		height: 180rpx;
+		height: 200rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		animation-name: example3;
-		animation-duration: 2s;	
-		
 		&-innerBox{
 			width: 90%;
 			height: 100%;
@@ -542,29 +574,59 @@
 			
 		}
 	}
+	
+	&-overCardOpen{
+		z-index: 1;
+		position: absolute;
+		top: v-bind(overCardMoveHeigh);
+		width: 100%;
+		height: 200rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		animation-name: openCard;
+		animation-duration: 0.5s;	
+		
+	}
 
 	&-overCardClose{
 		z-index: 1;
 		position: absolute;
 		width: 100%;
-		height: 180rpx;
+		height: 200rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		animation-name: example4;
-		animation-duration: 2s;
-	}
-	
-	&-overCardFrist{
-		z-index: 1;
-		position: absolute;
-		width: 100%;
-		height: 180rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		top: v-bind(overCardHeigh);
+		animation-name: closeCard;
+		animation-duration: 0.5s;
 	}
 
+	//表格
+	&-chart{
+		width: 100%;
+		height: 450rpx;
+		position: absolute;
+		background-color: red;
+		top: v-bind(chartHeigh);
+	}
+	
+	&-chartClose{
+		width: 100%;
+		height: 450rpx;
+		position: absolute;
+		animation-name: chartClose;
+		animation-duration: 0.5s;
+	}
+	
+	&-chartOpen{
+		width: 100%;
+		height: 450rpx;
+		position: absolute;
+		animation-name: chartOpen;
+		animation-duration: 0.5s;
+		top: v-bind(chartMoveHeigh);
+	}
 }
 
 /* 动画代码 */
@@ -578,13 +640,23 @@
     to {right: 0%;}
 }
 
-@keyframes example3 {
-  from {top: 674rpx;}
-    to {top: v-bind(heigh);}
+@keyframes openCard {
+  from {top: v-bind(overCardHeigh);}
+    to {top: v-bind(overCardMoveHeigh);}
 }
 
-@keyframes example4 {
-  from {top: v-bind(heigh);}
-    to {top: 674rpx;}
+@keyframes closeCard {
+  from {top: v-bind(overCardMoveHeigh);}
+    to {top: v-bind(overCardHeigh);}
+}
+
+@keyframes chartClose {
+  from {top: v-bind(chartMoveHeigh);}
+    to {top: v-bind(chartHeigh);}
+}
+
+@keyframes chartOpen {
+  from {top: v-bind(chartHeigh);}
+    to {top: v-bind(chartMoveHeigh);}
 }
 </style>
