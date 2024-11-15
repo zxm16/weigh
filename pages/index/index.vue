@@ -1,7 +1,6 @@
 <template>
 	<view class="content">
 		<view class="innerBox">
-			<!-- <image class="logo" src="../../static/logo.jpg"></image>	 -->
 			<view class="text-area">
 				<text class="title">{{title}}</text>
 			</view>
@@ -17,7 +16,7 @@ import  {useStore} from '@/store/index.js'
 
 const store = useStore()
 
-let title = ref('体重小本')
+let title = ref('体重记录册')
 
 //获取刘海高度
 const SYSTEM_INFO = uni.getSystemInfoSync();

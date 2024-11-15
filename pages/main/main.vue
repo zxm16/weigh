@@ -86,7 +86,7 @@
 							</view>
 							<view class="main-middleCard-innerBox-swiper-x-middle">
 								<bigCircleBar/>
-								<bigCircleBar/>
+								<multipleCirclar/>
 							</view>
 							<view class="main-middleCard-innerBox-swiper-x-bottom">
 								<smallCircleBar mealsTime="早餐" color='#71d5a1' progress='20'/>
@@ -167,6 +167,7 @@
 	import{storeToRefs} from 'pinia'
 	import  bigCircleBar from '@/component/common/CircularProgressBarBigOne.vue'
 	import  smallCircleBar from '@/component/common/CircularProgressBarSmallOne.vue'
+	import multipleCirclar from "@/component/common/MultipleCirular/MultipleCircularProgressBarBig.vue"
 	
 	//引入pinia
 	const store = useStore()
