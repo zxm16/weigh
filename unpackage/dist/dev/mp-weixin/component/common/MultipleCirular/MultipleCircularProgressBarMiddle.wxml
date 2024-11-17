@@ -1,0 +1,1 @@
+<view class="circleBig data-v-56a11648"><view ref="circleBigLeft" class="circleBig_left ab data-v-56a11648"></view><view ref="circleBigRight" class="circleBig_right ab data-v-56a11648"></view><view class="circleBig_text data-v-56a11648"><slot></slot></view></view>

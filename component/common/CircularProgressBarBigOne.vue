@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref} from 'vue';
+import { onMounted, ref, getCurrentInstance} from 'vue';
 
 const circleLeft= ref(null);
 const circleRight= ref(null);
@@ -37,6 +37,26 @@ const step = () => {
 };
 
 onMounted(() => {
+	/*#ifdef MP-WEIXIN*/
+	  // 微信小程序端执行的逻辑
+	  const instance = getCurrentInstance();
+	  
+	  const query = uni.createSelectorQuery().in(instance);
+	
+		query.select('#circleLeft').boundingClientRect(data => {
+		  if (data) {
+			circleLeft.value = data
+		  }
+		}).exec();
+		
+		query.select('#circleRight').boundingClientRect(data => {
+		  if (data) {
+			circleRight.value = data
+		  }
+		}).exec();
+	
+	
+	/*#endif*/
     step();
 });
 

@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "middle-bar": "./MultipleCircularProgressBarMiddle",
+    "small-bar": "./MultipleCircularProgressBarSmall"
+  }
+}

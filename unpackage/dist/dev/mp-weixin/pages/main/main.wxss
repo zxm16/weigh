@@ -30,6 +30,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 }
 .main-topBox-innerBox.data-v-4f50ca8f {
   width: 90%;
@@ -157,6 +158,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 .main-middleCard-innerBox.data-v-4f50ca8f {
   width: 90%;
@@ -165,12 +167,167 @@
   align-items: center;
   background-color: #c0c4cc;
   border-radius: 20px;
+  overflow: hidden;
 }
 .main-middleCard-innerBox-swiper.data-v-4f50ca8f {
   width: 100%;
   height: 100%;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
   overflow: hidden;
 }
+.main-middleCard-innerBox-swiper-x.data-v-4f50ca8f {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+}
+.main-middleCard-innerBox-swiper-x-top.data-v-4f50ca8f {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30rpx;
+}
+.main-middleCard-innerBox-swiper-x-top-left.data-v-4f50ca8f {
+  width: 250rpx;
+  color: white;
+  font-size: 32rpx;
+  letter-spacing: 4rpx;
+  font-weight: bold;
+}
+.main-middleCard-innerBox-swiper-x-top-right.data-v-4f50ca8f {
+  height: 100%;
+  display: flex;
+  width: 100rpx;
+  align-items: center;
+  justify-content: center;
+  font-size: 25rpx;
+  color: white;
+}
+.main-middleCard-innerBox-swiper-x-top-right-triangle.data-v-4f50ca8f {
+  margin-left: 10rpx;
+  width: 0;
+  height: 0;
+  border-left: 6rpx solid transparent;
+  border-right: 6rpx solid transparent;
+  border-top: 12rpx solid white;
+}
+.main-middleCard-innerBox-swiper-x-middle.data-v-4f50ca8f {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.main-middleCard-innerBox-swiper-x-bottom.data-v-4f50ca8f {
+  width: 100%;
+  height: 35%;
+  padding: 0 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.main-middleCard-innerBox-swiper-y.data-v-4f50ca8f {
+  width: 100%;
+  height: 100%;
+}
+.main-middleCard-innerBox-swiper-y-cover.data-v-4f50ca8f {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.main-middleCard-innerBox-swiper-y-cover-top.data-v-4f50ca8f {
+  width: 100%;
+  height: 70%;
+}
+.main-middleCard-innerBox-swiper-y-cover-bottom.data-v-4f50ca8f {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+}
+.main-middleCard-innerBox-swiper-y-cover-bottom .ab.data-v-4f50ca8f {
+  width: 33.3%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30rpx;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.main-overCard.data-v-4f50ca8f {
+  z-index: 1;
+  position: absolute;
+  top: var(--4f50ca8f-overCardHeigh);
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-overCard-innerBox.data-v-4f50ca8f {
+  width: 90%;
+  height: 100%;
+  background-color: #c0c4cc;
+  border-radius: 0px 0 20px 20px;
+  overflow: hidden;
+}
+.main-overCardOpen.data-v-4f50ca8f {
+  z-index: 1;
+  position: absolute;
+  top: var(--4f50ca8f-overCardMoveHeigh);
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation-name: openCard-4f50ca8f;
+  animation-duration: 0.5s;
+}
+.main-overCardClose.data-v-4f50ca8f {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 200rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: var(--4f50ca8f-overCardHeigh);
+  animation-name: closeCard-4f50ca8f;
+  animation-duration: 0.5s;
+}
+.main-chart.data-v-4f50ca8f {
+  width: 100%;
+  height: 1000rpx;
+  position: absolute;
+  background-color: red;
+  top: var(--4f50ca8f-chartHeigh);
+}
+.main-chartClose.data-v-4f50ca8f {
+  width: 100%;
+  height: 450rpx;
+  position: absolute;
+  animation-name: chartClose-4f50ca8f;
+  animation-duration: 0.5s;
+}
+.main-chartOpen.data-v-4f50ca8f {
+  width: 100%;
+  height: 450rpx;
+  position: absolute;
+  animation-name: chartOpen-4f50ca8f;
+  animation-duration: 0.5s;
+  top: var(--4f50ca8f-chartMoveHeigh);
+}
+
 /* 动画代码 */
 @keyframes example-4f50ca8f {
 from {
@@ -186,5 +343,37 @@ from {
 }
 to {
     right: 0%;
+}
+}
+@keyframes openCard-4f50ca8f {
+from {
+    top: var(--4f50ca8f-overCardHeigh);
+}
+to {
+    top: var(--4f50ca8f-overCardMoveHeigh);
+}
+}
+@keyframes closeCard-4f50ca8f {
+from {
+    top: var(--4f50ca8f-overCardMoveHeigh);
+}
+to {
+    top: var(--4f50ca8f-overCardHeigh);
+}
+}
+@keyframes chartClose-4f50ca8f {
+from {
+    top: var(--4f50ca8f-chartMoveHeigh);
+}
+to {
+    top: var(--4f50ca8f-chartHeigh);
+}
+}
+@keyframes chartOpen-4f50ca8f {
+from {
+    top: var(--4f50ca8f-chartHeigh);
+}
+to {
+    top: var(--4f50ca8f-chartMoveHeigh);
 }
 }

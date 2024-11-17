@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-icon": "../../uni_modules/vk-uview-ui/components/u-icon/u-icon",
+    "big-circle-bar": "../../component/common/CircularProgressBarBigOne",
+    "small-circle-bar": "../../component/common/CircularProgressBarSmallOne",
+    "multiple-circlar": "../../component/common/MultipleCirular/MultipleCircularProgressBarBig"
+  }
+}

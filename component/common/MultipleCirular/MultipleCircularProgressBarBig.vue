@@ -1,7 +1,7 @@
 <template>
 	<div class="circle">
-	    <div ref="circleLeft" class="circle_left ab"></div>
-	    <div ref="circleRight" class="circle_right ab"></div>
+	    <div ref="circleLeft" id="circleLeft" class="circle_left ab"></div>
+	    <div ref="circleRight" id="circleRight"  class="circle_right ab"></div>
 	    <div class="circle_text">
 	        <MiddleBar>
 				<SmallBar/>			
@@ -10,7 +10,7 @@
 	</div>
 </template>
 <script setup>
-import { onMounted, ref} from 'vue';
+import { onMounted, ref, getCurrentInstance} from 'vue';
 import MiddleBar from './MultipleCircularProgressBarMiddle.vue'
 import SmallBar from './MultipleCircularProgressBarSmall.vue'
 
@@ -19,8 +19,13 @@ const circleRight= ref(null);
 let timer = 0;
 let percent = 0;
 let num = 50
+/*#ifdef MP-WEIXIN*/
+// 微信小程序端执行的逻辑
+/*#endif*/
+
 
 const step = () => {
+	
 	if(percent < num){
 		percent+=1
 	}
@@ -39,6 +44,13 @@ const step = () => {
 };
 
 onMounted(() => {
+	/*#ifdef MP-WEIXIN*/
+	  // 微信小程序端执行的逻辑
+	const instance = getCurrentInstance().ctx
+	const dom = instance.$refs['circleLeft']
+	console.log(dom)
+	 
+	/*#endif*/
     step();
 });
 

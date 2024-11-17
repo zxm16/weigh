@@ -25,7 +25,7 @@ const statusBarHeight = SYSTEM_INFO.statusBarHeight || 15;
 let getLoginMsg = (data) => {
 	Login(data)
 	.then(res => {
-		console.log(res.data)
+		// console.log(res.data)
 		if(res.data.data === false){
 			setTimeout(() => {
 				uni.navigateTo({
@@ -36,17 +36,17 @@ let getLoginMsg = (data) => {
 		
 	})
 	.catch(err => {
-		console.log(err)
+		// console.log(err)
 	})
 	.finally(() => {
-		console.log(1111)
+		// console.log(1111)
 	})
 	
 }
 
 onLoad(()=>{
 	
-	console.log(1)
+	// console.log(1)
 	// store.setScreenTopNavHeight(statusBarHeight)
 	// getLoginMsg()
 	

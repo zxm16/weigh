@@ -5289,6 +5289,24 @@ function createVueApp(rootComponent, rootProps = null) {
   };
   return app;
 }
+function useCssVars(getter) {
+  const instance = getCurrentInstance();
+  if (!instance) {
+    warn$1(`useCssVars is called without current active component instance.`);
+    return;
+  }
+  initCssVarsRender(instance, getter);
+}
+function initCssVarsRender(instance, getter) {
+  instance.ctx.__cssVars = () => {
+    const vars = getter(instance.proxy);
+    const cssVars = {};
+    for (const key in vars) {
+      cssVars[`--${key}`] = vars[key];
+    }
+    return cssVars;
+  };
+}
 function injectLifecycleHook(name, hook, publicThis, instance) {
   if (isFunction$1(hook)) {
     injectHook(name, hook.bind(publicThis), instance);
@@ -8408,10 +8426,12 @@ exports.createPinia = createPinia;
 exports.createSSRApp = createSSRApp;
 exports.defineStore = defineStore;
 exports.e = e;
+exports.getCurrentInstance = getCurrentInstance;
 exports.index = index;
 exports.n = n;
 exports.o = o;
 exports.onLoad = onLoad;
+exports.onMounted = onMounted;
 exports.p = p;
 exports.reactive = reactive;
 exports.ref = ref;
@@ -8420,3 +8440,5 @@ exports.s = s;
 exports.storeToRefs = storeToRefs;
 exports.t = t;
 exports.unref = unref;
+exports.useCssVars = useCssVars;
+exports.watch = watch;

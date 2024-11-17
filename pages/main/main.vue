@@ -156,6 +156,14 @@
 			
 		</view>
 	</view>
+
+			<!-- 与包裹页面所有内容的元素u-page同级，且在它的下方 -->
+	<!-- <u-tabbar v-model="current" 
+	:list="list"
+	:border-top='false' active-color='#606266'
+	inactive-color="#c0c4cc"
+	>
+	</u-tabbar> -->
 </template>
 
 <script setup>
@@ -174,7 +182,32 @@
 	//获取刘海高度
 	const {screenTopNavHeight} = storeToRefs(store)
 	
-	
+	let list = reactive([{
+							iconPath: "list",
+							selectedIconPath: "list",
+							text: '记录',
+							count: 2,
+							isDot: true,
+							customIcon: false,
+						},
+						// {
+						// 	iconPath: "https://cdn.uviewui.com/uview/common/min_button.png",
+						// 	selectedIconPath: "https://cdn.uviewui.com/uview/common/min_button_select.png",
+						// 	// text: '发布',
+						// 	midButton: true,
+						// 	customIcon: false,
+						// },
+						{
+							iconPath: "account",
+							selectedIconPath: "account-fill",
+							text: '设置',
+							count: 23,
+							isDot: false,
+							customIcon: false,
+						}
+					])
+					
+	let current = ref(0)
 	// 参数
 	/**
 	 * 这是一个示例函数，用于加法运算。
@@ -267,14 +300,12 @@
 	
 	//监听超出card变化对下面的卡片进行移动
 	watch(() => control.openOverCardStyle, (newVal) => {
-		console.log(newVal)
 		if(newVal === 'main-overCardOpen'){
 			control.chartStyle = 'main-chartOpen'
 		}else{
 			control.chartStyle = 'main-chartClose'
 		}
-		console.log(chartHeigh.value)
-		console.log(chartMoveHeigh.value)
+		
 	})
 	
 	//生命周期
@@ -299,7 +330,6 @@
 		/*#ifdef MP-WEIXIN*/
 		  // 微信小程序端执行的逻辑
 			 control.navIcon = false
-			 console.log( control.navIcon)
 		/*#endif*/
 
 	})
@@ -318,6 +348,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		z-index: 10;
 		
 		&-innerBox{
 			width: 90%;
@@ -659,7 +690,7 @@
 	//表格
 	&-chart{
 		width: 100%;
-		height: 450rpx;
+		height: 1000rpx;
 		position: absolute;
 		background-color: red;
 		top: v-bind(chartHeigh);
