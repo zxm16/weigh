@@ -47,7 +47,8 @@ const _sfc_main = {
     let height = common_vendor.reactive({
       navHeight: 0,
       cardHeight: 0,
-      overCardHeigh: 0
+      overCardHeigh: 0,
+      topNav: 0
     });
     let overCardHeigh = common_vendor.ref(0);
     let overCardMoveHeigh = common_vendor.ref(0);
@@ -60,7 +61,8 @@ const _sfc_main = {
       navStyle: "main-topBox-innerBox-nav-middle",
       navIcon: true,
       openOverCardStyle: "main-overCard",
-      chartStyle: "main-chart"
+      chartStyle: "main-chart",
+      topNavColor: false
     });
     let changeNavStyle = (e) => {
       if (e === "left") {
@@ -68,11 +70,17 @@ const _sfc_main = {
         control.navStyle = "main-topBox-innerBox-nav-middley";
         control.controlValue = 1;
         control.swiperControl = 0;
+        setTimeout(() => {
+          control.topNavColor = true;
+        }, 250);
       } else {
         if (control.controlValue === 1) {
           control.navLocation = "right";
           control.navStyle = "main-topBox-innerBox-nav-middlex";
         }
+        setTimeout(() => {
+          control.topNavColor = false;
+        }, 250);
         control.controlValue = 0;
         control.swiperControl = 1;
       }
@@ -101,6 +109,7 @@ const _sfc_main = {
       }
     };
     common_vendor.watch(() => control.openOverCardStyle, (newVal) => {
+      console.log(newVal);
       if (newVal === "main-overCardOpen") {
         control.chartStyle = "main-chartOpen";
       } else {
@@ -113,6 +122,7 @@ const _sfc_main = {
       } else {
         height.navHeight = screenTopNavHeight.value;
       }
+      height.topNav = Number(height.navHeight) * 2 + 100;
       height.cardHeight = Number(height.navHeight) + 200;
       height.overCardHeigh = Number(height.navHeight) + 800;
       overCardHeigh.value = height.overCardHeigh - 200 + "rpx";
@@ -128,55 +138,57 @@ const _sfc_main = {
           size: "20px"
         }),
         b: common_vendor.n(common_vendor.unref(control).navStyle),
-        c: common_vendor.o(($event) => common_vendor.unref(changeNavStyle)("left")),
-        d: common_vendor.o(($event) => common_vendor.unref(changeNavStyle)("right")),
-        e: common_vendor.unref(control).navIcon
+        c: common_vendor.unref(control).topNavColor === false ? "#c0c4cc" : "#606266",
+        d: common_vendor.o(($event) => common_vendor.unref(changeNavStyle)("left")),
+        e: common_vendor.o(($event) => common_vendor.unref(changeNavStyle)("right")),
+        f: common_vendor.unref(control).topNavColor === true ? "#c0c4cc" : "#606266",
+        g: common_vendor.unref(control).navIcon
       }, common_vendor.unref(control).navIcon ? {
-        f: common_vendor.p({
+        h: common_vendor.p({
           name: "search",
           size: "20px"
         })
       } : {}, {
-        g: common_vendor.unref(control).navIcon
+        i: common_vendor.unref(control).navIcon
       }, common_vendor.unref(control).navIcon ? {
-        h: common_vendor.p({
+        j: common_vendor.p({
           name: "calendar",
           size: "20px"
         })
       } : {}, {
-        i: common_vendor.unref(height).navHeight + "px",
-        j: common_vendor.p({
+        k: common_vendor.unref(height).topNav + "rpx",
+        l: common_vendor.p({
           mealsTime: "\u65E9\u9910",
           color: "#71d5a1",
           progress: "20"
         }),
-        k: common_vendor.p({
+        m: common_vendor.p({
           mealsTime: "\u4E2D\u9910",
           color: "#a0cfff",
           progress: "40"
         }),
-        l: common_vendor.p({
+        n: common_vendor.p({
           mealsTime: "\u665A\u9910",
           color: "#fcbd71",
           progress: "75"
         }),
-        m: common_vendor.p({
+        o: common_vendor.p({
           mealsTime: "\u52A0\u9910",
           color: "#fab6b6",
           progress: "100"
         }),
-        n: common_vendor.o(($event) => common_vendor.unref(OpenCard)(common_vendor.unref(control).openOverCardStyle)),
-        o: common_vendor.o(($event) => common_vendor.unref(OpenCard)(common_vendor.unref(control).openOverCardStyle)),
-        p: common_vendor.p({
+        p: common_vendor.o(($event) => common_vendor.unref(OpenCard)(common_vendor.unref(control).openOverCardStyle)),
+        q: common_vendor.o(($event) => common_vendor.unref(OpenCard)(common_vendor.unref(control).openOverCardStyle)),
+        r: common_vendor.p({
           size: "45",
           name: "edit-pen-fill"
         }),
-        q: common_vendor.o((...args) => common_vendor.unref(changeSwiper) && common_vendor.unref(changeSwiper)(...args)),
-        r: common_vendor.unref(control).swiperControl,
-        s: common_vendor.unref(height).cardHeight + "rpx",
-        t: common_vendor.n(common_vendor.unref(control).openOverCardStyle),
-        v: common_vendor.n(common_vendor.unref(control).chartStyle),
-        w: common_vendor.s(_ctx.__cssVars())
+        s: common_vendor.o((...args) => common_vendor.unref(changeSwiper) && common_vendor.unref(changeSwiper)(...args)),
+        t: common_vendor.unref(control).swiperControl,
+        v: common_vendor.unref(height).cardHeight + "rpx",
+        w: common_vendor.n(common_vendor.unref(control).openOverCardStyle),
+        x: common_vendor.n(common_vendor.unref(control).chartStyle),
+        y: common_vendor.s(_ctx.__cssVars())
       });
     };
   }

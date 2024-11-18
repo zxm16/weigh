@@ -2,7 +2,7 @@
 	<view class="main">
 		
 		<!-- 顶部导航栏 -->
-		<view class="main-topBox" :style="{'top': height.navHeight + 'px'}">
+		<view class="main-topBox" :style="{'height': height.topNav + 'rpx'}">
 			<view class="main-topBox-innerBox">
 				
 				<view class="main-topBox-innerBox-avator">
@@ -39,13 +39,18 @@
 					
 					<view class="main-topBox-innerBox-nav-top">
 						
-						<view class="main-topBox-innerBox-nav-top-left" @click="changeNavStyle('left')">
+						<view class="main-topBox-innerBox-nav-top-left"
+						:style="{'color': control.topNavColor === false ? '#c0c4cc': '#606266'}"
+						 @click="changeNavStyle('left')">
 							<p class="main-topBox-innerBox-nav-top-left-x" 
 							>饮食</p>
 							
 						</view>
 						
-						<view class="main-topBox-innerBox-nav-top-right" @click="changeNavStyle('right')">
+						<view class="main-topBox-innerBox-nav-top-right" 
+						@click="changeNavStyle('right')"
+						:style="{'color': control.topNavColor === true ? '#c0c4cc': '#606266'}"
+						>
 							<p class="main-topBox-innerBox-nav-top-right-x"
 							>体重</p>
 							
@@ -218,6 +223,7 @@
 		navHeight: 0,
 		cardHeight: 0,
 		overCardHeigh: 0,
+		topNav:0
 		
 	})
 	
@@ -245,7 +251,8 @@
 		navStyle:'main-topBox-innerBox-nav-middle',
 		navIcon: true,
 		openOverCardStyle: 'main-overCard',
-		chartStyle: 'main-chart'
+		chartStyle: 'main-chart',
+		topNavColor: false
 	})
 	
 	
@@ -257,11 +264,17 @@
 			control.navStyle = 'main-topBox-innerBox-nav-middley'
 			control.controlValue = 1
 			control.swiperControl = 0
+			setTimeout(() => {
+				control.topNavColor = true
+			}, 250)
 		}else{
 			if(control.controlValue === 1){
 				control.navLocation = 'right'
 				control.navStyle = 'main-topBox-innerBox-nav-middlex'
 			}
+			setTimeout(() => {
+				control.topNavColor = false
+			}, 250)
 			control.controlValue = 0
 			control.swiperControl = 1
 			
@@ -300,6 +313,7 @@
 	
 	//监听超出card变化对下面的卡片进行移动
 	watch(() => control.openOverCardStyle, (newVal) => {
+		console.log(newVal)
 		if(newVal === 'main-overCardOpen'){
 			control.chartStyle = 'main-chartOpen'
 		}else{
@@ -316,7 +330,7 @@
 		}else{
 			height.navHeight = screenTopNavHeight.value
 		}
-		
+		height.topNav = Number(height.navHeight)*2 + 100
 		height.cardHeight = Number(height.navHeight) + 200
 		height.overCardHeigh = Number(height.navHeight) + 800
 		
@@ -330,6 +344,7 @@
 		/*#ifdef MP-WEIXIN*/
 		  // 微信小程序端执行的逻辑
 			 control.navIcon = false
+			 // console.log( control.navIcon)
 		/*#endif*/
 
 	})
@@ -343,16 +358,17 @@
 	//顶部盒子
 	&-topBox{
 		width: 100%;
-		height: 100rpx;
+		// height: 100rpx;
 		position: fixed;
 		display: flex;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-end;
 		z-index: 10;
+		background-color: white;
 		
 		&-innerBox{
 			width: 90%;
-			height: 100%;
+			height: 100rpx;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -456,6 +472,7 @@
 					display: flex;
 					justify-content: center;
 					align-items: center;
+					background-color: white;
 					
 					&-left{
 						width: 50%;
@@ -466,7 +483,6 @@
 						align-items: center;
 						font-size: 30rpx;
 						font-weight: bold;
-						mix-blend-mode: screen;
 					}
 					
 					&-right{
@@ -478,7 +494,6 @@
 						align-items: center;
 						font-size: 30rpx;
 						font-weight: bold;
-						mix-blend-mode: screen;
 						
 						
 					}

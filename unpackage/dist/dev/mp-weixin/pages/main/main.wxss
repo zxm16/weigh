@@ -25,16 +25,16 @@
 /* 文章场景相关 */
 .main-topBox.data-v-4f50ca8f {
   width: 100%;
-  height: 100rpx;
   position: fixed;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   z-index: 10;
+  background-color: white;
 }
 .main-topBox-innerBox.data-v-4f50ca8f {
   width: 90%;
-  height: 100%;
+  height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -119,6 +119,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 .main-topBox-innerBox-nav-top-left.data-v-4f50ca8f {
   width: 50%;
@@ -129,7 +130,6 @@
   align-items: center;
   font-size: 30rpx;
   font-weight: bold;
-  mix-blend-mode: screen;
 }
 .main-topBox-innerBox-nav-top-right.data-v-4f50ca8f {
   width: 50%;
@@ -140,7 +140,6 @@
   align-items: center;
   font-size: 30rpx;
   font-weight: bold;
-  mix-blend-mode: screen;
 }
 .main-topBox-innerBox-icon.data-v-4f50ca8f {
   width: 20%;
